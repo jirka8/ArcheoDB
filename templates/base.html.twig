@@ -23,10 +23,10 @@
             </div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="text-2xl font-medium text-white p-4">
-                <a href="#" class="p-4">Nálezy</a>
-                <a href="#" class="p-4">Lokality</a>
-                <a href="#" class="p-4">Nastavení</a>
-                <a href="{{ path('app_logout') }}" class="p-4">Odhlásit</a>
+                <a href="{{ path('app_finds') }}" class="p-4 hover:text-gray-300">Nálezy</a>
+                <a href="{{ path('app_locations') }}" class="p-4 hover:text-gray-300">Lokality</a>
+                <a href="{{ path('app_settings') }}" class="p-4 hover:text-gray-300">Nastavení</a>
+                <a href="{{ path('app_logout') }}" class="text-red-300 p-4">Odhlásit</a>
             </div>
             {% endif %}
         </div>

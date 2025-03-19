@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Categories;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -28,6 +29,15 @@ class AppFixtures extends Fixture
         $user->setEmail('test@test.com');
         $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
         $manager->persist($user);
+
+        $category1 = new Categories();
+        $category1->setTitle('Category 1');
+        $manager->persist($category1);
+
+        $category2 = new Categories();
+        $category2->setTitle('Category 2');
+        $category2->setParent($category1);
+        $manager->persist($category2);
 
         $manager->flush();
     }
