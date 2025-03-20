@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DatingsRepository;
+use Collator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,11 +19,14 @@ class Datings
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToOne(targetEntity: self::class, inversedBy: 'datings', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'datings', cascade: ['persist', 'remove'])]
     private ?self $parent = null;
 
-    #[ORM\OneToOne(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
-    private ?self $datings = null;
+    /**
+     * @var Collection<int, Datings>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
+    private Collection $datings;
 
     /**
      * @var Collection<int, Finds>
@@ -64,26 +68,12 @@ class Datings
         return $this;
     }
 
-    public function getDatings(): ?self
+    /**
+     * @return Collection<int, Datings>
+     */
+    public function getDatings(): Collection
     {
         return $this->datings;
-    }
-
-    public function setDatings(?self $datings): static
-    {
-        // unset the owning side of the relation if necessary
-        if (null === $datings && null !== $this->datings) {
-            $this->datings->setParent(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if (null !== $datings && $datings->getParent() !== $this) {
-            $datings->setParent($this);
-        }
-
-        $this->datings = $datings;
-
-        return $this;
     }
 
     /**

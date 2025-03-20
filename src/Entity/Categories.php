@@ -18,11 +18,14 @@ class Categories
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToOne(targetEntity: self::class, inversedBy: 'categories', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories', cascade: ['persist', 'remove'])]
     private ?self $parent = null;
 
-    #[ORM\OneToOne(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
-    private ?self $categories = null;
+    /**
+     * @var Collection<int, Categories>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
+    private Collection $categories;
 
     /**
      * @var Collection<int, Finds>
@@ -64,26 +67,12 @@ class Categories
         return $this;
     }
 
-    public function getCategories(): ?self
+    /**
+     * @return Collection<int, Categories>
+     */
+    public function getCategories(): Collection
     {
         return $this->categories;
-    }
-
-    public function setCategories(?self $categories): static
-    {
-        // unset the owning side of the relation if necessary
-        if (null === $categories && null !== $this->categories) {
-            $this->categories->setParent(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if (null !== $categories && $categories->getParent() !== $this) {
-            $categories->setParent($this);
-        }
-
-        $this->categories = $categories;
-
-        return $this;
     }
 
     /**
