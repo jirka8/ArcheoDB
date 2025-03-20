@@ -25,7 +25,7 @@ class Categories
      * @var Collection<int, Categories>
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
-    private Collection $categories;
+    private Collection $subcategories;
 
     /**
      * @var Collection<int, Finds>
@@ -70,9 +70,9 @@ class Categories
     /**
      * @return Collection<int, Categories>
      */
-    public function getCategories(): Collection
+    public function getSubcategories(): Collection
     {
-        return $this->categories;
+        return $this->subcategories;
     }
 
     /**
