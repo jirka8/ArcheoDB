@@ -18,7 +18,7 @@ final class MainPageController extends AbstractController
     ): Response
     {
         $cats = $categories->findAll();
-        dd($cats);
+        //dd($cats);
 
         return $this->render('main_page/index.html.twig', [
             'controller_name' => 'MainPageController',

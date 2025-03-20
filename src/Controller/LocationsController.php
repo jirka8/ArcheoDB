@@ -45,7 +45,7 @@ final class LocationsController extends AbstractController
 
 
         return $this->render('locations/add.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }

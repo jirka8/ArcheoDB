@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArcheoDB - Přidat novou lokalitu{% endblock %}
+
+{% block body %}
+<div class="w-2/3 mx-auto justify-center">
+    <div class="text-3xl text-bold pb-4">Přidat novou lokalitu</div>
+    {{ include('locations/_form.html.twig') }}
+</div>
+{% endblock %}
