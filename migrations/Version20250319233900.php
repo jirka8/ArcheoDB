@@ -20,8 +20,9 @@ final class Version20250319233900 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE finds ALTER gps TYPE geometry(POINT, 0) USING gps::geometry(POINT)');
-        //$this->addSql('ALTER TABLE finds ALTER gps SET NOT NULL');
+        $this->addSql('ALTER TABLE finds ADD COLUMN gps_new geometry(POINT, 4326)');
+        $this->addSql('ALTER TABLE finds DROP COLUMN gps');
+        $this->addSql('ALTER TABLE finds RENAME COLUMN gps_new TO gps');
     }
 
     public function down(Schema $schema): void
