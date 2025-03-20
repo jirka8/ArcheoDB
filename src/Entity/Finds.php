@@ -30,7 +30,7 @@ class Finds
     )]
     private ?string $gps = null;
 
-    #[ORM\OneToOne(inversedBy: 'finds', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Locations::class, cascade: ['persist', 'remove'])]
     private ?Locations $location = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

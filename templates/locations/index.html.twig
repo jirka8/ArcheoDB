@@ -3,5 +3,34 @@
 {% block title %}ArcheoDB - Lokality{% endblock %}
 
 {% block body %}
-
+<div class="w-2/3 mx-auto">
+    <div class="flex">
+        <div class="w-1/5 text-3xl text-bold">Přehled lokalit</div>
+        <div>
+            <a href="{{ path('app_locations_add') }}" class="block w-40 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2">
+                + Přidat novou</a>
+        </div>
+    </div>
+    <div class="flex mt-4 mb-2">
+        <div class="w-1/4 text-xl">Název</div>
+        <div class="w-2/4 text-xl">Popis</div>
+        <div class="w-1/4 text-xl">Akce</div>
+    </div>
+    <div class="border-b border-gray-300"></div>
+    <div class="flex flex-col">
+        {% for location in locations %}
+        <div class="flex mt-2">
+            <div class="w-1/4">{{ location.title }}</div>
+            <div class="w-2/4">{{ location.description }}</div>
+            <div class="flex w-1/4">
+                <a href="#" class="block w-20 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2 mr-2"> 
+                    Upravit</a>
+                <a href="#" class="block w-20 shadow-sm border-transparent bg-red-600 hover:bg-red-700 text-white text-center rounded-md border p-2 mb-2">
+                    Smazat</a>
+            </div>
+        </div>
+        <div class="border-b border-gray-300"></div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

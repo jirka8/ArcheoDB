@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Locations;
 use App\Form\LocationType;
+use App\Repository\LocationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,14 @@ final class LocationsController extends AbstractController
 {
     #[Route('/locations', name: 'app_locations')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function index(): Response
+    public function index(
+        LocationsRepository $locations
+    ): Response
     {
+        $locs = $locations->findAll();
+        
         return $this->render('locations/index.html.twig', [
-            'controller_name' => 'LocationsController',
+            'locations' => $locs,
         ]);
     }
 
@@ -42,7 +47,6 @@ final class LocationsController extends AbstractController
 
             return $this->redirectToRoute('app_locations');
         }
-
 
         return $this->render('locations/add.html.twig', [
             'form' => $form,

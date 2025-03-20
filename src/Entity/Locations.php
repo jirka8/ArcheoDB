@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LocationsRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocationsRepository::class)]
@@ -19,12 +20,9 @@ class Locations
     #[ORM\Column(length: 1024)]
     private ?string $description = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
-
-    #[ORM\OneToOne(mappedBy: 'location', cascade: ['persist', 'remove'])]
-    private ?Finds $finds = null;
 
     public function getId(): ?int
     {
@@ -63,28 +61,6 @@ class Locations
     public function setCreator(User $creator): static
     {
         $this->creator = $creator;
-
-        return $this;
-    }
-
-    public function getFinds(): ?Finds
-    {
-        return $this->finds;
-    }
-
-    public function setFinds(?Finds $finds): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($finds === null && $this->finds !== null) {
-            $this->finds->setLocation(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($finds !== null && $finds->getLocation() !== $this) {
-            $finds->setLocation($this);
-        }
-
-        $this->finds = $finds;
 
         return $this;
     }
