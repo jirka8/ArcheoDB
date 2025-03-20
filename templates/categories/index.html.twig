@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArcheoDB - Kategorie{% endblock %}
+
+{% block body %}
+<div class="w-2/3 mx-auto">
+    <div class="flex">
+        <div class="w-2/3 text-3xl text-bold">Přehled kategorií</div>
+        <div class="w-1/3 justify-items-end">
+            <a href="{{ path('app_categories_add') }}" class="block w-40 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2">
+                + Přidat novou</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
