@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Datings;
+use App\Form\DatingType;
 use App\Repository\DatingsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class DatingsController extends AbstractController
 {
@@ -24,10 +28,16 @@ final class DatingsController extends AbstractController
     }
 
     #[Route('/datings/add', name: 'app_datings_add')]
-    public function add(): Response
+    public function add(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response
     {
+        $form = $this->createForm(DatingType::class, new Datings());
+        $form->handleRequest($request);
+
         return $this->render('datings/add.html.twig', [
-            'controller_name' => 'DatingsController',
+            'form' => $form,
         ]);
     }
 

@@ -16,7 +16,9 @@ class DatingType extends AbstractType
             ->add('title')
             ->add('parent', EntityType::class, [
                 'class' => Datings::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
+                'required' => false,
+                'placeholder' => 'Nemá nadřazenou kategorii',
             ])
         ;
     }
