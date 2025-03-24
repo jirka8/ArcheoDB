@@ -6,7 +6,6 @@ use App\Entity\Categories;
 use App\Form\CategoryType;
 use App\Repository\CategoriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Dom\Entity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

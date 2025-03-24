@@ -9,16 +9,44 @@
         <div class="w-1/4">{{ item.title }}</div>
         <div class="w-2/4">
             {% for subcategory in item.subcategories %}
-                <span class="bg-gray-200 text-gray-600 text-sm rounded-full px-2 py-1 mr-2">{{ subcategory.title }}</span>
+                <span class="bg-gray-200 text-gray-600 text-sm rounded-full px-2 py-1 mr-2">{{ subcategory.title }}
+                (<a href="{{ path(edit_action, {id: subcategory.id}) }}" class="text-green-600 hover:text-green-700">e</a>
+                <a href="{{ path(delete_action, {id: subcategory.id}) }}" class="text-red-600 hover:text-red-700">x</a>)
+                </span>
             {% endfor %}
         </div>
         <div class="flex w-1/4 justify-end">
             <a href="{{ path(edit_action, {id: item.id}) }}" class="block w-20 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2 mr-2"> 
                 Upravit</a>
-            <a href="{{ path(delete_action, {id: item.id}) }}" class="block w-20 shadow-sm border-transparent bg-red-600 hover:bg-red-700 text-white text-center rounded-md border p-2 mb-2">
+            <a href="{{ path(delete_action, {id: item.id}) }}" class="delete block w-20 shadow-sm border-transparent bg-red-600 hover:bg-red-700 text-white text-center rounded-md border p-2 mb-2">
                 Smazat</a>
         </div>
     </div>
     <div class="border-b border-gray-300"></div>
     {% endfor %}
 </div>
+
+<script>
+    document.querySelectorAll('.delete').forEach(item => {
+        item.addEventListener('click', (event) => {
+            event.preventDefault();
+            const url = item.getAttribute('href');
+            Swal.fire({
+                title: 'Smazání položky',
+                text: 'Smazání položky je nevratné.',
+                showDenyButton: true,
+                confirmButtonText: 'Ano, smazat',
+                denyButtonText: 'Ne',
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'block w-40 shadow-sm border-transparent bg-red-600 hover:bg-red-700 text-white text-center rounded-md border p-2 mb-2 mr-2',
+                    denyButton: 'block w-20 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        });
+    });
+</script>
