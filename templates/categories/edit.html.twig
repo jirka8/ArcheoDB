@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArcheoDB - Upravit kategorii {{ category.title }}{% endblock %}
+
+{% block body %}
+<div class="w-2/3 mx-auto">
+    <div class="text-3xl text-bold pb-4">Upravit kategorii {{ category.title }}</div>
+    {{ include('categories/_form.html.twig') }}
+</div>
+{% endblock %}
