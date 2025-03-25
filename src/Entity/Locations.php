@@ -20,7 +20,7 @@ class Locations
     #[ORM\Column(length: 1024)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 

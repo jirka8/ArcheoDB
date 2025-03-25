@@ -52,4 +52,46 @@ final class LocationsController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/locations/edit/{id}', name: 'app_locations_edit')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function edit(
+        Locations $location,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $form = $this->createForm(LocationType::class, $location);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $location = $form->getData();
+            $entityManager->persist($location);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Lokalita byla úspěšně upravena.');
+
+            return $this->redirectToRoute('app_locations');
+        }
+
+        return $this->render('locations/edit.html.twig', [
+            'form' => $form,
+            'location' => $location,
+        ]);
+    }
+
+    #[Route('/locations/delete/{id}', name: 'app_locations_delete')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function delete(
+        Locations $location,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $entityManager->remove($location);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Lokalita byla úspěšně smazána.');
+
+        return $this->redirectToRoute('app_locations');
+    }
 }

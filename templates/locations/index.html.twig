@@ -22,9 +22,9 @@
             <div class="w-1/4">{{ location.title }}</div>
             <div class="w-2/4">{{ location.description }}</div>
             <div class="flex w-1/4 justify-end">
-                <a href="#" class="block w-20 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2 mr-2"> 
+                <a href="{{ path('app_locations_edit', {id: location.id}) }}" class="block w-20 shadow-sm border-transparent bg-green-600 hover:bg-green-700 text-white text-center rounded-md border p-2 mb-2 mr-2"> 
                     Upravit</a>
-                <a href="#" class="block w-20 shadow-sm border-transparent bg-red-600 hover:bg-red-700 text-white text-center rounded-md border p-2 mb-2">
+                <a href="{{ path('app_locations_delete', {id: location.id}) }}" class="delete block w-20 shadow-sm border-transparent bg-red-600 hover:bg-red-700 text-white text-center rounded-md border p-2 mb-2">
                     Smazat</a>
             </div>
         </div>

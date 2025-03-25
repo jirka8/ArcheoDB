@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArcheoDB - Upravit lokalitu {{ location.title }}{% endblock %}
+
+{% block body %}
+<div class="w-2/3 mx-auto justify-center">
+    <div class="text-3xl text-bold pb-4">Upravit lokalitu {{ location.title }}</div>
+    {{ include('locations/_form.html.twig') }}
+</div>
+{% endblock %}
