@@ -19,13 +19,13 @@ class Datings
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'datings', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'datings')]
     private ?self $parent = null;
 
     /**
      * @var Collection<int, Datings>
      */
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', orphanRemoval: true)]
     private Collection $subcategories;
 
     /**
